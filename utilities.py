@@ -10,8 +10,11 @@ def generate_positions_from_index(idx_file_value, idx_file_path, output_file_pat
         print "Lines Written: " + str(len(df)) + " to " + output_file_path
     return df.index.tolist()
 
-def create_partitioned_data_file(idx_file_value, idx_file_path, data_file_path, output_file_path):
-    all_df = pandas.read_csv(data_file_path, delim_whitespace=True, names=["User", "Movie", "Date", "Rating"])
+def create_partitioned_data_file(idx_file_value, idx_file_path, data_file_path, output_file_path, is_um):
+    if (is_um):
+        all_df = pandas.read_csv(data_file_path, delim_whitespace=True, names=["User", "Movie", "Date", "Rating"])
+    else:
+        all_df = pandas.read_csv(data_file_path, delim_whitespace=True, names=["Movie", "User", "Date", "Rating"])
     print "Lines Analyzed: " + str(len(all_df)) + " from " + data_file_path
     indices = generate_positions_from_index(idx_file_value, idx_file_path)
     df = all_df[all_df.index.isin(indices)]
@@ -19,4 +22,5 @@ def create_partitioned_data_file(idx_file_value, idx_file_path, data_file_path, 
     print "Lines Written: " + str(len(df)) + " to " + output_file_path
 
 if __name__ == "__main__":
-    create_partitioned_data_file(5, "um/all.idx", "um/all.dta", "um/seperated/qual_test_data.dta")
+    #create_partitioned_data_file(5, "um/all.idx", "um/all.dta", "um/separated/qual_test_data.dta", True)
+    create_partitioned_data_file(1, "mu/all.idx", "mu/all.dta", "mu/separated/base_training_data.dta", False)
