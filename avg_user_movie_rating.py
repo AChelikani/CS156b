@@ -1,7 +1,7 @@
 # Stats
-# With user_coef = .75 and movie_coef = 0.25
-# RMSE: 1.06693
-# % Above Water = -12.14%
+# With user_coef = .5 and movie_coef = 0.5
+# RMSE: 1.01439
+# % Above Water = -6.6208%
 
 user_to_rating_sum = {}
 user_to_num_rated = {}

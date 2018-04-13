@@ -1,3 +1,4 @@
 mu/
 um/
 *.pyc
+generated/
