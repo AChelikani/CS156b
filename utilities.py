@@ -15,7 +15,8 @@ def create_partitioned_data_file(idx_file_value, idx_file_path, data_file_path, 
     print "Lines Analyzed: " + str(len(all_df)) + " from " + data_file_path
     indices = generate_positions_from_index(idx_file_value, idx_file_path)
     df = all_df[all_df.index.isin(indices)]
-    df.to_csv(output_file_path, sep=" ", header=False, index=False)
+    df.drop(columns=["Date"])
+    df.to_csv(output_file_path, sep="\t", header=False, index=False)
     print "Lines Written: " + str(len(df)) + " to " + output_file_path
 
 def generate_averages(base_data_file_path):
