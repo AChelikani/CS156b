@@ -12,8 +12,8 @@ import pandas as pd
 import time
 import pickle
 
-file_path = 'custom_data/training.csv'
-file_path_test = 'custom_data/test.csv'
+file_path = '../custom_data/training.csv'
+file_path_test = '../custom_data/test.csv'
 title = 'SVD_f100_ep100_lr005'
 
 print(time.asctime(), 'loading training data')
@@ -38,9 +38,6 @@ algo = SVD(verbose=True, n_factors=100, n_epochs=100, lr_all=0.005)
 #
 algo.fit(trainset)
 
-# loads trained algo from pickle
-# with open('custom_data/<algo_name>.pickle', 'rb') as f:
-    # algo = pickle.load(f)
 print(time.asctime(), 'training complete, now loading prediction data')
 to_predict = pd.read_csv(file_path_test, delimiter=' ', header=None)
 to_predict = to_predict.values.T[0:2].T
@@ -55,11 +52,6 @@ for i in range(len(predicted)):
         print(i, 'of', len(predicted), 'predicted')
 
 print(time.asctime(), 'now saving predictions')
-np.savetxt('custom_data/'+title+'.dta', predicted, fmt='%.3f')
+np.savetxt('../custom_data/'+title+'.dta', predicted, fmt='%.3f')
 
-# del trainset # idk if we can del trainset and still save algo yet
-print(time.asctime(), 'saved predictions, now saving trained model')
-del to_predict
-with open('custom_data/'+title+'.pickle', 'wb') as f:
-    pickle.dump(algo, f, pickle.HIGHEST_PROTOCOL)
 print(time.asctime(), 'done')
