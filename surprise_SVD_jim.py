@@ -14,7 +14,11 @@ import pickle
 
 file_path = '../custom_data/training.csv'
 file_path_test = '../custom_data/test.csv'
-title = 'SVD_f100_ep100_lr005'
+
+lr=0.01
+ep=25
+fac=100
+title = 'SVD_f'+str(fac)+'_ep'+str(ep)+'_lr'+str(lr)
 
 print(time.asctime(), 'loading training data')
 df = pd.read_csv(file_path, delimiter=' ', header=None)
@@ -32,7 +36,7 @@ print(time.asctime(), 'training set built, now training')
 #
 #
 # MODEL DEFINITION
-algo = SVD(verbose=True, n_factors=100, n_epochs=100, lr_all=0.005)
+algo = SVD(verbose=True, n_factors=fac, n_epochs=ep, lr_all=lr)
 #
 #
 #
