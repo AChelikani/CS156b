@@ -17,7 +17,7 @@ file_path_test = '../custom_data/test.csv' # does not include qual
 
 lr=0.005
 ep=25
-fac=60
+fac=65
 title = 'SVD_f'+str(fac)+'_ep'+str(ep)+'_lr'+str(lr)
 
 print(time.asctime(), 'loading training data')
