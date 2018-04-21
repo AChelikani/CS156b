@@ -12,12 +12,12 @@ import pandas as pd
 import time
 import pickle
 
-file_path = '../custom_data/training.csv'
-file_path_test = '../custom_data/test.csv'
+file_path = '../custom_data/training.csv' # training includes probe
+file_path_test = '../custom_data/test.csv' # does not include qual
 
-lr=0.01
+lr=0.005
 ep=25
-fac=100
+fac=60
 title = 'SVD_f'+str(fac)+'_ep'+str(ep)+'_lr'+str(lr)
 
 print(time.asctime(), 'loading training data')
