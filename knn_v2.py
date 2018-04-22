@@ -14,10 +14,12 @@ import pickle
 file_path = 'um/custom_data/training.csv' # training includes probe
 file_path_test = 'um/custom_data/test.csv' # does not include qual
 
-#lr=0.005
-#ep=25
 #fac=65
+#ep=25
+#lr=0.005
+# title for KNN is defined right before algo! this is just a template
 #title = 'SVD_f'+str(fac)+'_ep'+str(ep)+'_lr'+str(lr)
+
 
 print(time.asctime(), 'loading training data')
 df = pd.read_csv(file_path, delimiter=' ', header=None)
@@ -32,6 +34,7 @@ del data
 
 print(time.asctime(), 'training set built, now training')
 k, min_k = 20, 5
+title = 'KNN_k'+str(k)+'_mink'+str(min_k)
 algo = KNNBasic(k=k, min_k=min_k)
 algo.fit(trainset)
 
