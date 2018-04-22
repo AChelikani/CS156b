@@ -11,8 +11,9 @@ import pandas as pd
 import time
 import pickle
 
-file_path = 'um/custom_data/training.csv' # training includes probe
-file_path_test = 'um/custom_data/test.csv' # does not include qual
+# CHECK THE PATHS FOR YOUR OWN COMPUTER (ONE MORE INSTANCE BELOW TOO)
+file_path = '../custom_data/training.csv' # training includes probe
+file_path_test = '../custom_data/test.csv' # does not include qual
 
 #fac=65
 #ep=25
@@ -52,6 +53,8 @@ for i in range(len(predicted)):
         print(i, 'of', len(predicted), 'predicted')
 
 print(time.asctime(), 'now saving predictions')
-np.savetxt('../um/custom_data/'+title+'.dta', predicted, fmt='%.3f')
+
+# CHECK THE PATHS FOR YOUR OWN COMPUTER
+np.savetxt('../custom_data/'+title+'.dta', predicted, fmt='%.3f')
 
 print(time.asctime(), 'done')
