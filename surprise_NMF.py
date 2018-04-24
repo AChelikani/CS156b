@@ -16,8 +16,8 @@ file_path = '../custom_data/training.csv' # training includes probe, use CSV_spl
 file_path_test = '../custom_data/test.csv' # does not include qual, use CSV_splitter to generate this
 
 fac=15
-ep=50
-title = 'NMF_f'+str(fac)+'_ep'+str(ep)
+ep=40
+title = 'NMF_f'+str(fac)+'_ep'+str(ep)+'_biased'
 
 print(time.asctime(), 'loading training data')
 df = pd.read_csv(file_path, delimiter=' ', header=None)
@@ -35,7 +35,7 @@ print(time.asctime(), 'training set built, now training')
 #
 #
 # MODEL DEFINITION
-algo = NMF(verbose=True, n_factors=fac, n_epochs=ep)
+algo = NMF(verbose=True, biased=True, n_factors=fac, n_epochs=ep)
 #
 #
 #
