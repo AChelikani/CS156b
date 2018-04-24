@@ -12,8 +12,8 @@ import pandas as pd
 import time
 import pickle
 
-file_path = '../custom_data/training.csv' # training includes probe
-file_path_test = '../custom_data/test.csv' # does not include qual
+file_path = '../custom_data/training.csv' # training includes probe, use CSV_splitter to generate this
+file_path_test = '../custom_data/test.csv' # does not include qual, use CSV_splitter to generate this
 
 lr=0.005
 ep=25
