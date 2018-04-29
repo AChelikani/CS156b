@@ -31,8 +31,9 @@ def generate_averages(base_data_file_path):
 
 
 
+
 if __name__ == "__main__":
     #create_partitioned_data_file(5, "um/all.idx", "um/all.dta", "um/separated/qual_test_data.dta")
     #create_partitioned_data_file(1, "mu/all.idx", "mu/all.dta", "mu/separated/base_training_data.dta")
     #generate_averages("um/separated/base_training_data.dta")
-    create_partitioned_data_file(4, "um/all.idx", "um/all.dta", "um/separated/probe_training_data.dta")
+    create_partitioned_data_file(2, "um/all.idx", "um/all.dta", "um/separated/subset_base_training_data.dta")

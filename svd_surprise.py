@@ -1,29 +1,44 @@
 from surprise import SVD, BaselineOnly, Reader, evaluate, Dataset
 import os
-from surprise.model_selection import cross_validate
+from pprint import pprint
+import pandas
+import time
 
-file_path = os.path.expanduser('um/separated/probe_training_data.dta')
+start_time = time.time()
 
-reader = Reader(line_format='user item timestamp rating', sep='\t')
 
-data = Dataset.load_from_file("um/separated/probe_training_data.dta", reader=reader)
-
-data.split(n_folds=5)
-algo = SVD()
-
-cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
+df = pandas.read_csv("um/separated/base_training_data.dta", delimiter=' ', header=None)
+#data = Dataset.load_from_file("um/separated/base_training_data_tabbed.dta", reader=reader)
+df.columns = ['user', 'item', 'timestamp', 'rating']
+reader = Reader(rating_scale=(1, 5))
+data = Dataset.load_from_df(df[['user', 'item', 'rating']], reader)
+del df
+print "Dataset loaded...\n"
 
 trainset = data.build_full_trainset()
-algo.train(trainset)
+del data
+print "Trainset built...\n"
 
-'''
-f = open("um/separated/qual_test_data.dta", "r")
-for line in f:
-    user, movie, timestamp = map(int, line.rstrip().split(" "))
-'''
+algo = SVD(verbose=True, n_factors=100, n_epochs=1, lr_all=0.005)
 
-userid = 1
-itemid = 3912
-pred = algo.predict(uid=userid, iid=itemid, verbose=2)
-f = open("um/output/")
-print pred
+algo.fit(trainset)
+print "Algorithm fitted...\n"
+print("--- %s seconds ---\n" % (time.time() - start_time))
+start_time_prediction = time.time()
+
+qual_df = pandas.read_csv("um/separated/qual_test_data.dta", delim_whitespace=True, names=["User", "Movie", "Date"])
+output_file = open("um/output/svd_surprise.dta", "w")
+
+print "Qual data loaded...\n"
+row_counter = 0
+
+for row in qual_df.itertuples(index=True, name="Qual Data"):
+    user, movie, date, rating = row
+    pred = algo.predict(uid=user, iid=movie)
+    row_counter += 1
+    if (row_counter%10000==0):
+        print row_counter
+    output_file.write(str(pred[3]) + "\n")
+
+output_file.close()
+print("--- %s seconds ---\n" % (time.time() - start_time_prediction))
